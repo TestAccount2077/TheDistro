@@ -1,0 +1,6 @@
+.item-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    box-shadow: -5px 5px 10px 0px black;
+}

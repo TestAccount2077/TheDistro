@@ -1,0 +1,20 @@
+<div id='add-client-modal' class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title people-modal-title">اضافة بيانات عميل جديد</h5>
+                    </div>
+                    <div class="modal-body" id="filter-body">
+                        <input style="margin-bottom:20px" type="text" class="form-control" id="name" placeholder="الاسم">
+                        <input style="margin-bottom:20px" type="text" class="form-control" id="phone" placeholder="رقم التليفون">
+                        <input style="margin-bottom:20px" type="text" class="form-control" id="address" placeholder="العنوان">
+                        <input style="margin-bottom:20px" type="text" class="form-control" id="order" placeholder="الطلب">
+                    </div>
+                    <div class="modal-footer" style="background-color:#F3F6F8;border-radius:6px">
+                        <br>
+                        <!--<button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">الغاء</button>-->
+                        <button id='add-client-btn' type="button" class="btn btn-success">اضافة</button>
+                    </div>
+                </div>
+            </div>
+        </div>

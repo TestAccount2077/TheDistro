@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}طلب جديد{% endblock %}
+
+{% block body %}
+
+<div id='new-order-modal' class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title people-modal-title">طلب جديد</h5>
+            </div>
+            <div class="modal-body" id="filter-body">
+                <input dir="rtl" style="margin-bottom:20px;display:none" type="text" class="form-control" id="name" placeholder="الاسم">
+                <input dir="rtl" style="margin-bottom:20px" type="text" class="form-control" id="phone" placeholder="رقم التليفون">
+                <input dir="rtl" style="margin-bottom:20px;display:none" type="text" class="form-control" id="address" placeholder="العنوان">
+                <input dir="rtl" style="margin-bottom:20px;display:none" type="text" class="form-control" id="order" placeholder="الطلب">
+                <a href="#" style="display:none;text-align:right;margin-right:10px" id="menu-a" dir="rtl">الذهاب للمينيو</a>
+                <div id="order-list">
+                    {% if items %}
+                    <h2 dir="rtl">الطلب</h2>
+                    {% for item in items %}
+                        <h3 dir="rtl" style="text-align:right">x{{ item.count }} {{ item.name }}</h3>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#F3F6F8;border-radius:6px">
+                <br>
+                <button type="button" class="btn btn-default cancel-btn" onclick="location.href = '/';">عودة</button>
+                <button id='inquire-client-btn' type="button" class="btn btn-primary">استعلام</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'main/js/new-order.js' %}"></script>
+
+    <script type="text/javascript">
+        
+        {% if items %}
+        var items = {{ items|safe }},
+            data = {{ data|safe }};
+        
+        $('#name, #address, #phone').show();
+        
+        $('#name').val(data.name);
+        $('#address').val(data.address);
+        $('#phone').val(data.phone);
+        
+        $('#inquire-client-btn')
+            .attr('id', 'create-order')
+            .text('تأكيد')
+            .removeClass('btn-primary')
+            .addClass('btn-success');
+        
+        {% endif %}
+        
+    </script>
+
+{% endblock %}

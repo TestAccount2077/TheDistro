@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}القائمة{% endblock %}
+
+{% block css %}
+    <link href="{% static 'main/css/order-menu.css' %}">
+{% endblock %}
+
+{% block body %}
+
+    {% for item in items %}
+    <div class="item" dir="rtl">
+        <img class="item-img" src="https://content3.jdmagicbox.com/comp/goa/t2/0832px832.x832.121231162157.v4t2/catalogue/pizza-hut-calangute-goa-pizza-outlets-yayaxq.jpg">
+        <p class="item-name">{{ item.name }}</p>
+        <input data-associated-with="{{ item.pk }}" type="text">
+    </div>
+    {% endfor %}
+
+    <button class="btn btn-lg btn-success" style="margin-left:40%" id="proceed">متابعة</button>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'main/js/order-menu.js' %}"></script>
+
+    <script type="text/javascript">
+        
+        var REQUEST_DATA = {{ data|safe }};
+        
+    </script>
+
+{% endblock %}

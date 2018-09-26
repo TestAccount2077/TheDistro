@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<table id="client-table" class="table table-bordered" dir="rtl" data-item-type='maintenance'>
+    
+    <thead style="text-align:center">
+        <tr>
+            <th>الاسم</th>
+            <th class="sortable" data-criteria='company'><span class='sort-carat'>&#9660;</span>التليفون</th>
+            <th class="sortable" data-criteria='type'><span class='sort-carat'>&#9660;</span>العنوان</th>
+            <th class="sortable" data-criteria='date'><span class='sort-carat'>&#9660;</span>الطلب</th>
+            <th class="sortable" data-criteria='date'><span class='sort-carat'>&#9660;</span>ملاحظات</th>
+            <th>حذف</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% for client in clients %}
+        <tr data-pk="{{ client.pk }}">
+            <td>{{ client.name }}</td>
+            <td>{{ client.phone }}</td>
+            <td>{{ client.address }}</td>
+            <td>{{ client.order }}</td>
+            <td>{{ client.notes }}</td>
+            <td><img src="{% static 'images/remove.png' %}" class="icon remove-client-item" data-pk="{{ client.pk }}"></td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="#" data-toggle='modal' data-target='#add-client-modal'>اضافة</a></td>
+        </tr>
+    </tbody>
+    
+</table>
+
+{% endblock %}

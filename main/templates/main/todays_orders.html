@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}طلبات اليوم{% endblock %}
+
+{% block body %}
+<table id="order-table" class="table table-bordered" dir="rtl" data-item-type='maintenance'>
+    
+    <thead style="text-align:center">
+        <tr>
+            <th>م</th>
+            <th>الاسم</th>
+            <th class="sortable" data-criteria='company'><span class='sort-carat'>&#9660;</span>التليفون</th>
+            <th class="sortable" data-criteria='type'><span class='sort-carat'>&#9660;</span>العنوان</th>
+            <th class="sortable" data-criteria='date'><span class='sort-carat'>&#9660;</span>الطلب</th>
+            <th class="sortable" data-criteria='date'><span class='sort-carat'>&#9660;</span>نوع الطلب</th>
+            <th class="sortable" data-criteria='date'><span class='sort-carat'>&#9660;</span>اجمالى الفاتورة</th>
+            <th class="sortable" data-criteria='date'><span class='sort-carat'>&#9660;</span>ملاحظات</th>
+            <th>حذف</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        {% for order in Order.all %}
+        <tr data-pk="{{ order.pk }}">
+            <td>{{ forloop.counter }}</td>
+            <td>{{ order.client.name }}</td>
+            <td>{{ order.client.phone }}</td>
+            <td>{{ order.client.address }}</td>
+            <td><a href='#' data-toggle='modal' data-target='#order-modal' class="order-modal-btn">عرض</a></td>
+            <td>{{ order.get_order_type_display }}</td>
+            <td>{{ order.total_cost }}</td>
+            <td>{{ order.notes }}</td>
+            <td><img src="{% static 'images/remove.png' %}" class="icon remove-order-item" data-pk="{{ order.pk }}"></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div id='order-modal' class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title people-modal-title">تفاصيل الطلب</h5>
+            </div>
+            <div class="modal-body" id="order-body" dir="rtl"></div>
+            <div class="modal-footer" style="background-color:#F3F6F8;border-radius:6px">
+                <br>
+                <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">عودة</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'main/js/todays-orders.js' %}"></script>
+
+    <script type="text/javascript">
+        
+        var orders = {{ orders|safe }};
+        
+    </script>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Menu{% endblock %}
+
+
+{% block body %}
+<table class="table table-bordered" dir="rtl">
+    <thead>
+        <th>الاسم</th>
+        <th>الصنف</th>
+        <th>سعر المتوسط</th>
+        <th>سعر الكبير</th>
+        <th>المكونات</th>
+    </thead>
+    
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.get_item_type_display }}</td>
+            <td>{{ item.medium_price }}</td>
+            <td>{{ item.large_price }}</td>
+            <td>{{ item.components }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+{% endblock %}
