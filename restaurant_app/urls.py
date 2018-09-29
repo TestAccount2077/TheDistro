@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^', include('main.urls')),
+    url(r'^', include('accounts.urls')),
+    url(r'^expenses/', include('expenses.urls')),
     url(r'^admin/', admin.site.urls),
 ]
 

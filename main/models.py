@@ -34,6 +34,10 @@ class MenuItem(models.Model):
     medium_price = models.FloatField()
     large_price = models.FloatField()
     components = models.TextField()
+    image_url = models.URLField()
+    
+    def __str__(self):
+        return self.name
     
     
 class Order(models.Model):

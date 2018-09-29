@@ -4,29 +4,39 @@
 {% block title %}القائمة{% endblock %}
 
 {% block css %}
-    <link href="{% static 'main/css/order-menu.css' %}">
+    <link href="{% static 'main/css/order-menu.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
 
-    {% for item in items %}
-    <div class="item" dir="rtl">
-        <img class="item-img" src="https://content3.jdmagicbox.com/comp/goa/t2/0832px832.x832.121231162157.v4t2/catalogue/pizza-hut-calangute-goa-pizza-outlets-yayaxq.jpg">
-        <p class="item-name">{{ item.name }}</p>
-        <input data-associated-with="{{ item.pk }}" type="text">
+    {% for type, items in item_packages.items %}
+    <div style="margin-bottom:75px">
+        <h1 dir="rtl">{{ type }}</h1>
+
+        <div style="display: flex" dir="rtl">
+            {% for item in items %}
+            <div class="item">
+                <img class="item-img" src="{{ item.image_url }}">
+                <p class="item-name">{{ item.name }}</p>
+                <input data-associated-with="{{ item.pk }}" type="text" placeholder="العدد">
+            </div>
+
+            {% empty %}
+            <h2>لا يوجد أصناف فى هذا القسم</h2>
+            {% endfor %}
+        </div>
     </div>
     {% endfor %}
+    
 
-    <button class="btn btn-lg btn-success" style="margin-left:40%" id="proceed">متابعة</button>
+    <button class="btn btn-lg btn-success" style="margin-left:40%;margin-bottom:100px" id="proceed">متابعة</button>
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'main/js/order-menu.js' %}"></script>
 
     <script type="text/javascript">
-        
         var REQUEST_DATA = {{ data|safe }};
-        
     </script>
 
 {% endblock %}

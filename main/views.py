@@ -1,17 +1,21 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
+from abstract.utils import get_abstract_data
+
 from .models import *
 
 import json
 
 def todays_orders(request):
     
-    context = {
+    context = get_abstract_data()
+    
+    context.update({
         'Order': Order.objects,
         'clients': Client.objects.all(),
         'orders': {order.id: order.as_dict() for order in Order.objects.all()}
-    }
+    })
     
     return render(request, 'main/todays_orders.html', context=context)
 
@@ -38,7 +42,7 @@ def remove_order(request):
 def new_order(request):
     
     data = request.GET
-    context = {}
+    context = get_abstract_data()
     
     if data.get('items'):
         context['items'] = json.loads(data['items'])
@@ -48,9 +52,11 @@ def new_order(request):
 
 def menu_view(request):
     
-    context = {
+    context = get_abstract_data()
+    
+    context.update({
         'items': MenuItem.objects.all()
-    }
+    })
     
     return render(request, 'main/menu.html', context=context)
 
@@ -76,7 +82,11 @@ def order_menu(request):
     
     data = request.GET
     
-    context = {
+    TYPES = dict(MenuItem.TYPES)
+    
+    context = get_abstract_data()
+    
+    context.update({
         
         'data': json.dumps({
             'name': data['name'],
@@ -84,8 +94,8 @@ def order_menu(request):
             'phone': data['phone']
         }),
         
-        'items': MenuItem.objects.all()
-    }
+        'item_packages': {TYPES[type_]: MenuItem.objects.filter(item_type=type_) for type_ in TYPES.keys()}
+    })
     
     return render(request, 'main/order-menu.html', context=context)
 

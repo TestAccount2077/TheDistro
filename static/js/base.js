@@ -1,3 +1,6 @@
+const socket = new WebSocket('wss://qwepoiasdkljxcmv.herokuapp.com/ws/data/')
+
+
 var currentValue,
     password,
     pendingToUnlockElement,
@@ -840,7 +843,7 @@ $(document).on('click', '.quick-action', function (e) {
 });
 
 $(document).on('click', '#upload', function (e) {
-    return;
+    //return;
     if (navigator.onLine) {
         swal(
             {
@@ -861,6 +864,8 @@ $(document).on('click', '#upload', function (e) {
                     success: function (data) {
 
                         swal("تم رفع البيانات بنجاح", "", "success");
+                        
+                        socket.send(JSON.stringify(data));
                         
                     },
 
@@ -1206,7 +1211,7 @@ $(document).on('click', '#confirm-new-password-btn', function (e) {
     }
     
     $.ajax({
-        url: 'accounts/ajax/change-password/',
+        url: '/accounts/ajax/change-password/',
         
         data: {
             password: $('#password').val()

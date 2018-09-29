@@ -78,9 +78,9 @@
                 
                 <ul class="nav navbar-nav navbar-right">
                     <p style="margin-top: 15px;margin-left: 30px;">الرصيد المتاح:
-                        <span id="current-balance-label">1000{{ current_balance }}</span>
+                        <span id="current-balance-label">{{ current_balance }}</span>
                         جنيه | عهدة أول اليوم:
-                        <span id="opening-balance-label"> 2000{{ opening_balance }} </span>
+                        <span id="opening-balance-label"> {{ opening_balance }} </span>
                         جنيه
                     </p>
                 </ul>
@@ -166,11 +166,11 @@
                     <div class="dashboard-submenu" id="expenses-submenu" style="display:none">
 
                         <ul class="list-group inner-group">
-                            <li class="list-group-item inner">
+                            <li class="list-group-item inner" onclick="location.href = '/expenses/daily-expenses/';">
                                 <a href="#daily-expenses">مصاريف اليوم</a>
                             </li>
 
-                            <li class="list-group-item inner">
+                            <li class="list-group-item inner" onclick="location.href = '/expenses/expense-archive/';">
                                 <a href="#expense-archive-list">أرشيف المصاريف</a>
                             </li>
                         </ul>
