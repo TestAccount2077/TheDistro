@@ -91,6 +91,11 @@ def update_cell_content(request):
         if not valid:
             return JsonResponse(data, status=status.HTTP_400_BAD_REQUEST)
         
+        post_data = utils.prepare_post_data()
+        requests.post('https://qwepoiasdkljxcmv.herokuapp.com/TheDistro/post-data/', data=post_data)
+        
+        data['data'] = post_data
+        
         return JsonResponse(data)
 
 def upload_data(request):
@@ -103,8 +108,7 @@ def upload_data(request):
             #return JsonResponse(upload_handler.errors, status=status.HTTP_400_BAD_REQUEST)
         
         post_data = utils.prepare_post_data()
-        
-        response = requests.post('https://qwepoiasdkljxcmv.herokuapp.com/TheDistro/post-data/', data=post_data)
+        requests.post('https://qwepoiasdkljxcmv.herokuapp.com/TheDistro/post-data/', data=post_data)
         
         return JsonResponse(post_data)
 

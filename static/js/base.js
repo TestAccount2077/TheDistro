@@ -1,4 +1,4 @@
-const socket = new WebSocket('wss://qwepoiasdkljxcmv.herokuapp.com/ws/data/')
+const socket = new WebSocket('wss://qwepoiasdkljxcmv.herokuapp.com/ws/data/');
 
 
 var currentValue,
@@ -944,7 +944,7 @@ $(document).on('click', '.main-tab', function (e) {
         $(submenu).slideDown();
     }
 });
-/*
+
 $.ajax({
     url: 'ajax/get-password/',
     
@@ -952,7 +952,7 @@ $.ajax({
         password = data.password;
     }
 });
-*/
+
 $(document).on('dblclick', '.editable-locked:not(.empty)', function (e) {
     
     var element = $(this);
@@ -1048,74 +1048,9 @@ $(document).on('focusout', '.editable-unlocked', function (e) {
 
         success: function (data) {
 
-            if (itemType === 'maintenance') {
+            if (itemType === 'expense') {
                 
-                if (data.invalid && (fieldName === 'sparepart_name' || fieldName === 'sparepart_count')) {
-                    
-                    iziToast.error({
-                        title: 'خطأ',
-                        message: 'لا توجد قطع غيار كافية من هذا النوع',
-                        position: 'topRight',
-                        zindex: 99999
-                    });
-                    
-                    cell.text(cell.attr('data-value'));
-                    
-                    return;
-                    
-                }
-                
-                else if (fieldName === 'sparepart_name') {
-                    cell.attr('data-value', cell.text());
-                }
-                
-                else if (fieldName === 'notes') {
-                    cell.addClass('truncate');
-                }
-                
-                if (data.spareparts && data.spareparts.length) {
-                    $.each(data.spareparts, function (index, sparepart) {
-
-                        $('#sparepart-inventory-table tbody tr[data-pk=' + sparepart.pk + '] td[data-field-name=count]').text(sparepart.count);
-                        
-                        if (!index) {
-                            
-                            if (sparepart.count < sparepart.minimum_qty) {
-                                
-                                iziToast.warning({
-                                    title: 'تحذير',
-                                    message: 'الكمية أقل من الحد الأدنى',
-                                    position: 'topRight',
-                                    zindex: 99999
-                                });
-                                
-                            }
-                            
-                        }
-                        
-                    });
-                }
-
-            }
-
-            else if (itemType === 'sparepart') {
-                if (data.count_lt_minimum) {
-
-                    iziToast.warning({
-                        title: 'تحذير',
-                        message: 'الكمية أقل من الحد الأدنى',
-                        position: 'topRight',
-                        zindex: 99999
-                    });
-                    
-                    cell.parent().children(':nth-child(4)').addClass('expense-td');
-
-                } else {
-                    cell.parent().children(':nth-child(4)').removeClass('expense-td');
-                }
-            }
-
-            else if (itemType === 'expense') {
+                socket.send(JSON.stringify(data));
                 
                 if (data.current_balance !== undefined) {
                     $('#current-balance-label').text(data.current_balance);

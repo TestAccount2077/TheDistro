@@ -91,6 +91,8 @@ $(document).on('click', '#create-order', function() {
         
         success: function (data) {
             
+            socket.send(JSON.stringify(data));
+            
             iziToast.success({
                 title: 'نجاح',
                 message: 'تم عمل الأوردر بنجاح',

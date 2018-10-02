@@ -12,7 +12,7 @@ from abstract.models import TimeStampedModel, App
 class Expense(TimeStampedModel):
     
     description = models.CharField(max_length=300)
-    balance_change = models.FloatField()
+    balance_change = models.FloatField(default=0.0)
     total_after_change = models.FloatField(null=True, blank=True)
     
     date = models.DateField()

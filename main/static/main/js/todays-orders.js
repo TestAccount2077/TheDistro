@@ -14,8 +14,14 @@ $(document).on('click', '.order-modal-btn', function (e) {
     var element = ``;
     
     $.each(order.items, function (index, item) {
-        element += `<h3>x${ item.count } ${ item.name }`;
+        element += `
+        <h3>x${ item.count } ${ item.name }<span style="float:left">${ item.cost.toFixed(2) } جنيه</span></h3>
+        `;
     });
+    
+    element += `
+    <hr><h3>الاجمالى<span style="float:left">${ order.total_cost.toFixed(2) } جنيه</span></h3>
+    `;
     
     $('#order-body').html(element);
     

@@ -85,6 +85,8 @@ $(document).on('keypress', '#daily-expenses-table tbody tr:last td.empty:nth-chi
             
             success: function (data) {
                 
+                socket.send(JSON.stringify(data.data));
+                
                 $('#current-balance-label').text(data.current_balance);
                 
                 var element = $('#daily-expenses-table tbody tr:last');
@@ -168,6 +170,8 @@ $(document).on('click', '.remove-expense-item', function (e) {
             },
             
             success: function (data) {
+                
+                socket.send(JSON.stringify(data.data));
                 
                 $('#current-balance-label').text(data.current_balance);
                 

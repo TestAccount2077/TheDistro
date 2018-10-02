@@ -15,8 +15,9 @@
 
         <div style="display: flex" dir="rtl">
             {% for item in items %}
-            <div class="item">
+            <div class="item tool-tip">
                 <img class="item-img" src="{{ item.image_url }}">
+                <span class="tooltiptext">{{ item.components }}</span>
                 <p class="item-name">{{ item.name }}</p>
                 <input data-associated-with="{{ item.pk }}" type="text" placeholder="العدد">
             </div>
@@ -27,7 +28,6 @@
         </div>
     </div>
     {% endfor %}
-    
 
     <button class="btn btn-lg btn-success" style="margin-left:40%;margin-bottom:100px" id="proceed">متابعة</button>
 {% endblock %}

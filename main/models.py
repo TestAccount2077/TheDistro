@@ -79,6 +79,7 @@ class OrderItem(models.Model):
             
             'id': self.id,
             'name': self.item.name,
-            'count': self.count
+            'count': self.count,
+            'cost': float(self.count * self.item.medium_price)
             
         }

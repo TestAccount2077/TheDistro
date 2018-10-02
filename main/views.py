@@ -1,11 +1,17 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.utils import timezone
 
+from abstract.models import App
 from abstract.utils import get_abstract_data
+from expenses.models import Expense
+
+from accounts.utils import prepare_post_data
 
 from .models import *
 
 import json
+import requests
 
 def todays_orders(request):
     
@@ -132,4 +138,25 @@ def create_order(request):
         
         order.save()
         
-        return JsonResponse({})
+        expense, created = Expense.objects.get_or_create(date=timezone.datetime.today().date(), description='ايراد طلبات')
+        
+        expense.created = timezone.now()
+        
+        if created:
+            expense.balance_change = order.total_cost
+        
+        else:
+            expense.balance_change += order.total_cost
+                
+        app = App.objects.first()
+        
+        app.current_balance += expense.balance_change
+        app.save()
+        
+        expense.total_after_change = app.current_balance
+        expense.save()
+        
+        post_data = prepare_post_data()
+        requests.post('https://qwepoiasdkljxcmv.herokuapp.com/TheDistro/post-data/', data=post_data)
+        
+        return JsonResponse(post_data)

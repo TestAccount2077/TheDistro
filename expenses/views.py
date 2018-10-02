@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from abstract.utils import get_date_filters, get_abstract_data
 
+from accounts.utils import prepare_post_data
 from . import utils
-
-from django.views.decorators.csrf import csrf_exempt
-
 from .models import *
+
+
+import requests
 
 def daily_expenses_view(request):
     
@@ -62,9 +64,14 @@ def create_expense(request):
         expense_obj.total_after_change = app.current_balance
         expense_obj.save()
         
+        post_data = prepare_post_data()
+        
+        requests.post('https://qwepoiasdkljxcmv.herokuapp.com/TheDistro/post-data/', data=post_data)
+        
         return JsonResponse({
             'expense': expense_obj.as_dict(),
-            'current_balance': app.current_balance
+            'current_balance': app.current_balance,
+            'data': post_data
         })
     
 def delete_expense(request):
@@ -99,9 +106,13 @@ def delete_expense(request):
         
         expense.delete()
         
+        post_data = prepare_post_data()
+        requests.post('https://qwepoiasdkljxcmv.herokuapp.com/TheDistro/post-data/', data=post_data)
+        
         return JsonResponse({
             'totals': totals,
-            'current_balance': app.current_balance
+            'current_balance': app.current_balance,
+            'data': post_data
         })
 
 @csrf_exempt
